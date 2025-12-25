@@ -117,7 +117,10 @@ class NodeSQLiteQueryable<ClientT extends StdClient> implements SqlQueryable {
       );
       const stmt = this.client.prepare(query.sql);
 
-      stmt.setReturnArrays(true);
+      if('setReturnArrays' in stmt) {
+        stmt.setReturnArrays(true);
+      }
+      
       stmt.setReadBigInts(true);
       const columns = stmt.columns();
 
